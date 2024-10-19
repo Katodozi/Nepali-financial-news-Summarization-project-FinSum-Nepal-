@@ -1,0 +1,3 @@
+-> First of all we are going to apply some extractive summarization algorithm to obtain the summarization of the 
+   financial text 
+-> Then we will use some abstractive summarization algorithm to make our summarization even more accurate and efficient
