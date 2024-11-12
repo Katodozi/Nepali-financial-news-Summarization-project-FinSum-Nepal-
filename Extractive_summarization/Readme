@@ -20,3 +20,9 @@ Unsupervised Learning: TextRank does not require labeled training data or deep l
 across different languages and domains25.
 Semantic Understanding: Unlike traditional methods like TF-IDF that rely solely on frequency counts, TextRank captures 
 semantic relationships between words, leading to more meaningful keyword extraction and summarization.
+
+WHAT HAVE WE DONE DIFFERENT TO MAKE THE SUMMARY MORE SIMANTICALLY RICH?
+In traditional TextRank, edges between nodes (words or sentences) are often based on simple co-occurrence counts. 
+By using word embeddings, the edge weights can reflect semantic similarity scores (e.g., cosine similarity), allowing 
+for a more nuanced(has multiple layers of meaning or that it involves fine details that require careful
+consideration to fully understand) understanding of relationships between words and sentences within the graph structure.
