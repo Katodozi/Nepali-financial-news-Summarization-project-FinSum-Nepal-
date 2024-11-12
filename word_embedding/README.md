@@ -1,1 +1,1 @@
-This folder contains all the code, data and explaination about the word embedding(converting words into vector of 100 dimension in our case)
+This folder contains all the code, data and explaination about the word embedding(converting words into vector of 100 dimension in our case) using GloVe
