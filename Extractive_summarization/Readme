@@ -1,3 +1,22 @@
--> First of all we are going to apply some extractive summarization algorithm to obtain the summarization of the 
-   financial text 
--> Then we will use some abstractive summarization algorithm to make our summarization even more accurate and efficient
+We have used the textrank algorithm for summarizing the nepali finacial text articles for our project which is customed to give
+output sentences as summary output.
+
+TEXTRANK: The extractive summarization technique which is graph based ranking model used for natural language processing(NLP)
+tasks like text summarization and keyword extraction. Also it is inspired by the google's pagerank algorithm.
+
+NODES AND EDGES: In TextRank, each word or sentence is represented as a node in a graph. 
+Edges are created between nodes based on the relationships between words or sentences, often determined by content overlap. 
+For sentences, edges are established if they share common words, while for keywords, connections are made based 
+on co-occurrence within a specified window of text.
+
+RANKING MECHANISM
+Iterative mechanism: The algorithm employs an iterative process similar to PageRank. Each node's score is updated based 
+on the scores of its connected nodes. This means that words or sentences that are linked to other high-scoring nodes will
+ receive higher scores themselves. The process continues until the scores stabilize, yielding a final ranking of the
+ nodes.
+
+ADVANTAGES
+Unsupervised Learning: TextRank does not require labeled training data or deep linguistic knowledge, making it applicable 
+across different languages and domains25.
+Semantic Understanding: Unlike traditional methods like TF-IDF that rely solely on frequency counts, TextRank captures 
+semantic relationships between words, leading to more meaningful keyword extraction and summarization.
