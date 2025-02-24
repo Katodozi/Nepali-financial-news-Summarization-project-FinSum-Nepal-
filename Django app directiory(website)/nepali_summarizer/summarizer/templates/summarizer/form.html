@@ -22,7 +22,6 @@
         .container {
             width: 80%;
             margin: auto;
-            overflow: hidden;
         }
         h1 {
             margin-top: 20px;
@@ -66,15 +65,16 @@
 
 <div class="container">
     <div class="form-container">
-        <h2>Enter Nepali Financial News Text</h2>
-
+        <h2>Enter Nepali News Text</h2>
+        <!--django syntax to pass the error from server side if any to display-->
         {% if error %}
             <p class="error">{{ error }}</p> <!-- Display error message if any -->
         {% endif %}
 
         <form method="post">
+            <!--The {% csrf_token %} tag is used for Cross-Site Request Forgery protection in Django applications-->
             {% csrf_token %}
-            <textarea name="text" placeholder="Enter your Nepali financial news text here..."></textarea><br>
+            <textarea name="text" placeholder="Enter your Nepali news text here..."></textarea><br>
             <button type="submit">Summarize</button>
         </form>
     </div>

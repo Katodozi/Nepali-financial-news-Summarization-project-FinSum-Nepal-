@@ -14,12 +14,13 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+#here admin is needed for data model management and since we don't have any database related task here it's of no use to us
 from django.contrib import admin
 from django.urls import path
 from summarizer.views import summarize_view, index_view  # Import both views
 
 urlpatterns = [
-    path('', index_view, name="index"),  # Home page view at root URL
+    path('', index_view, name="index"),  # root url is handled by index_view in our case
     path('summarize/', summarize_view, name="summarize"), 
     path('admin/', admin.site.urls),
 ]
