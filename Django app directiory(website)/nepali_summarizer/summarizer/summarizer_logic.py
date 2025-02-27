@@ -50,31 +50,45 @@ def get_sentence_vector(sentence, embeddings):
     
     return np.mean(vectors, axis=0)  # Average out the vectors
 
+import networkx as nx
+
 def textrank(sentences, embeddings):
-    if not sentences:  # Edge case: empty input
+    if not sentences:
         return []
     
-    # Calculating 30% of sentences with min 2, max 10
+    # Dynamic length calculation (keep your original logic)
     num_sentences = len(sentences)
-    top_n = round(num_sentences * 0.3)
-    top_n = max(2, min(10, top_n))  #between 2-10
+    top_n = max(2, min(10, round(num_sentences * 0.3)))
 
-    sentence_vectors = []
-    for sentence in sentences:
-        vector = get_sentence_vector(sentence, embeddings)
-        sentence_vectors.append(vector)
-
+    # Vectorization (unchanged)
+    sentence_vectors = [get_sentence_vector(sent, embeddings) for sent in sentences]
+    
     try:
         sentence_vectors = np.array(sentence_vectors)
-    except ValueError as e:
-        return sentences[:top_n]  # Fallback for vectorization errors
-
-    # Edge case: handle all-zero vectors
-    if np.all(sentence_vectors == 0):
+    except ValueError:
         return sentences[:top_n]
 
+    # ===== Critical PageRank Fixes =====
     similarity_matrix = cosine_similarity(sentence_vectors)
-    scores = np.sum(similarity_matrix, axis=1)
-    ranked_sentences = [sentences[i] for i in np.argsort(scores)[::-1]]
     
-    return ranked_sentences[:top_n]
+    # 1. Remove self-similarities to avoid loops
+    np.fill_diagonal(similarity_matrix, 0)
+    
+    # 2. Add epsilon to ensure connectivity
+    similarity_matrix += 1e-8  # Prevents dangling nodes
+    
+    # 3. Create graph with normalized weights
+    nx_graph = nx.from_numpy_array(similarity_matrix)
+    
+    # 4. Optimized PageRank parameters for convergence
+    scores = nx.pagerank(
+        nx_graph, 
+        alpha=0.85,       # Damping factor (standard)
+        max_iter=2000,    # Increased iterations
+        tol=1e-12,        # Lower tolerance
+        weight='weight'   # Use similarity values
+    )
+    
+    # Rank sentences using PageRank scores
+    ranked_indices = sorted(scores, key=lambda x: scores[x], reverse=True)
+    return [sentences[i] for i in ranked_indices[:top_n]]
