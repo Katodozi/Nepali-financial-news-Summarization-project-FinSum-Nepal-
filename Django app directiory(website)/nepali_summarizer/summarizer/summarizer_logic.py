@@ -86,7 +86,6 @@ def textrank(sentences, embeddings):
         alpha=0.85,       # Damping factor (standard)
         max_iter=2000,    # Increased iterations
         tol=1e-12,        # Lower tolerance
-        weight='weight'   # Use similarity values
     )
     
     # Rank sentences using PageRank scores
